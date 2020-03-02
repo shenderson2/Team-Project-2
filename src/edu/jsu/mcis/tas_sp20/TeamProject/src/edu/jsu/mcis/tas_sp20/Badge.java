@@ -11,16 +11,30 @@ public class Badge {
         this.id = id;
     }
     
+    public int getid(){
+        return id;
+    }
+    
     public String getF_name(){
         return F_name;
     }
+    public void setF_name(String f){
+        this.F_name = f;
+    }
+    
     public String getL_name(){
         return L_name;
     }
+    public void setL_name(String l){
+        this.L_name = l;
+    }
+    
     public String getM_init(){
         return M_init;
     }
-    
+    public void setM_init(String m){
+        this.M_init = m;
+    }
     
     @Override
     public String toString(){

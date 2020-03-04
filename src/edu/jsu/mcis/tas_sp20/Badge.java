@@ -2,16 +2,16 @@ package edu.jsu.mcis.tas_sp20;
 
 
 public class Badge {
-    private int id;
+    private String id;
     private String F_name;
     private String L_name;
     private String M_init;
     
-    public Badge(int id){
+    public Badge(String id){
         this.id = id;
     }
     
-    public int getid(){
+    public String getid(){
         return id;
     }
     

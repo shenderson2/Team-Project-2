@@ -83,9 +83,9 @@ public class TASDatabase {
             pstBadge.execute();
             resultSet = pstBadge.getResultSet();
             resultSet.first();
-
-            Badge badge = new Badge(resultSet.getString("id"), resultSet.getString("description"));
-
+            
+            Badge badge = new Badge(resultSet.getString("id"));
+            
             punch = new Punch(terminalID, badge, origTimeStamp, punchTypeID);
 
         } catch (Exception e) {

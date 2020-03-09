@@ -2,17 +2,17 @@ package edu.jsu.mcis.tas_sp20;
 
 
 public class Badge {
-    private String id;
+    private String ID;
     private String F_name;
     private String L_name;
     private String M_init;
     
-    public Badge(String id){
-        this.id = id;
+    public Badge(String ID){
+        this.ID = ID;
     }
     
-    public String getid(){
-        return id;
+    public String getID(){
+        return ID;
     }
     
     public String getF_name(){
@@ -38,6 +38,6 @@ public class Badge {
     
     @Override
     public String toString(){
-        return "#" + id + "(" + L_name + ", " + F_name + M_init + ")";
+        return "#" + ID + "(" + L_name + ", " + F_name + M_init + ")";
     }
 }

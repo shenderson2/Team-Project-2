@@ -52,6 +52,26 @@ public class Shift {
 
         }
 
-        
+           private String getHourMin(Time time){
+
+
+
+        return time.toString().substring(0, 5);
+
+	}
+
+	
+
+	@Override
+
+	public String toString(){
+
+
+
+		return description + ": " + getHourMin(start) + " - " + getHourMin(stop) + " (510 minutes); Lunch: " + getHourMin(lunchstart) + " - " + getHourMin(lunchstop) + " (30 minutes)";
+
+	}  
+
+
 }
 

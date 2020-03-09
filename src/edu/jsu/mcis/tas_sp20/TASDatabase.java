@@ -5,12 +5,13 @@ import java.sql.*;
 //import java.sql.Time; //Caitlin Added
 import java.sql.Time;
 
+
 public class TASDatabase {
     private Connection conn;
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws SQLException {
         TASDatabase db = new TASDatabase();
-      //  Punch punch = db.getPunch(3433);
+        Punch punch = db.getPunch(3433);
         
         
     }
@@ -37,7 +38,7 @@ public class TASDatabase {
         }
     }
 
-    public TASDatabase(String server, String user, String pass) {
+    public TASDatabase(String server, String user, String pass) throws SQLException {
         try {
               
                 System.out.println("Connected successfully!");
@@ -107,7 +108,7 @@ public class TASDatabase {
         return punch;
     }
 
-    public Badge getBadge(String ID) {
+    public Badge getBadge(String ID) throws SQLException {
         Badge badge = null;
         String query;
         PreparedStatement pst;
@@ -129,7 +130,7 @@ public class TASDatabase {
         return badge;
     }
 
-    public Shift getShift(int ID) {
+    public Shift getShift(int ID) throws SQLException {
         Shift shift = null;
         String query;
         PreparedStatement pst;
@@ -164,7 +165,7 @@ public class TASDatabase {
         return shift;
     }
 
-    public Shift getShift(Badge badge) {
+    public Shift getShift(Badge badge) throws SQLException {
         Shift shift = null;
         String query;
         PreparedStatement pst;
@@ -173,7 +174,7 @@ public class TASDatabase {
         try {
             query = "SELECT shiftid FROM employee WHERE badgeid = ?";
             pst = conn.prepareStatement(query);
-            pst.setString(1, badge.getid());
+            pst.setString(1, badge.getID());
 
             pst.execute();
             resultSet = pst.getResultSet();
@@ -209,11 +210,11 @@ public class TASDatabase {
         return shift;
     }
 
-    public int insertPunch(Punch p) {   
-        String badgeID = p.getbadge().getid();
+    public int insertPunch(Punch p) throws SQLException {   
+        String badgeID = p.getbadge().getID();
         int terminalID = p.getterminalid();
         int punchTypeID = p.getpunchtypeid();
-       // Long originalTimeStamp = p.setOriginalTimeStamp();// Long needed to set time stamp
+       // Long originalTimeStamp = p.setoriginalTimeStamp();// Long needed to set time stamp
 
         try {
             PreparedStatement pst;

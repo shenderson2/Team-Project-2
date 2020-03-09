@@ -30,7 +30,7 @@ public class Shift {
         public Shift(int ShiftId, String Description, Time Start, Time Stop, int Interval, int Graceperiod, int Dock, Time Lunchstart, Time Lunchstop, int Lunchdeduct){
 
 
-            this.shiftId = shiftId;
+            this.shiftId = ShiftId;
             
             this.description = Description;
 

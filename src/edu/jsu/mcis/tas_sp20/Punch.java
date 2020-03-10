@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package edu.jsu.mcis.tas_sp20;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -68,26 +69,28 @@ public class Punch {
     }
     
     public String printOriginalTimestamp(){
-      StringBuilder sb = new StringBuilder("#");
-      sb.append(badgeid);
-      switch(punchtypeid){
-          case 0:
-            sb.append(" CLOCKED OUT:");
-            break;
-          case 1:
-            sb.append(" CLOCKED IN:");
-            break; 
-          case 2:
-            sb.append(" TIMED OUT:");
-            break;
-          default:
-            sb.append(" ERROR");
-      }
-       sb.append(originaltimestamp);
-       
-       SimpleDateFormat sdf = new SimpleDateFormat("EEE MM/dd/yyyy HH:mm:ss");
-       sb.append(sdf.format(gc.getTime()).toUpperCase());
-       return sb.toString();
+     String s = "#";
+        String badgeid = this.badgeid;
+        s += badgeid;
+        
+        switch (this.getPunchtypeid()){
+            case 0:
+                s += " CLOCKED OUT: ";
+                break;
+            case 1:
+                s += " CLOCKED IN: ";
+                break;
+            case 2:
+                s += " TIMED OUT: ";
+        }
+        
+        DateFormat df = new SimpleDateFormat("EEE MM/dd/yyyy HH:mm:ss");
+        Date d = new Date(this.originaltimestamp);
+        
+        s += (df.format(d)).toUpperCase();
+        
+        
+        return s;
     }
     
 }

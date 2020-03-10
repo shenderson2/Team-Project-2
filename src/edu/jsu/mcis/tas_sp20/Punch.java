@@ -8,47 +8,68 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 public class Punch {
-  private String adjustmenttype;
-  private int terminalid;
-  private int punchtypeid;
-  private static int id;
-  private long originaltimestamp;
-  Badge badge;
-  private GregorianCalendar gc = new GregorianCalendar ();
+    
+    private String adjustmenttype;
+    private int terminalid;
+    private int punchtypeid;
+    private long originaltimestamp;
+    private String badgeid;
+    private GregorianCalendar gc = new GregorianCalendar ();
   
           
-  public Punch(int terminalid, Badge badge, long originaltimestamp, int punchtypeid){
-        this.punchtypeid = punchtypeid;
-        this.terminalid = terminalid;
-        this.originaltimestamp = originaltimestamp;
-        this.badge = badge;
-  }
-   public Punch(int id){
-       Punch.id = id;
-   }
-     public Badge getbadge(){
-     return badge;
- }
-    public int getid(){
-        return id;
+    public Punch(int terminalid, String badgeid, long originaltimestamp, int punchtypeid){
+          this.punchtypeid = punchtypeid;
+          this.terminalid = terminalid;
+          this.originaltimestamp = originaltimestamp;
+          this.badgeid = badgeid;
     }
-   public int getterminalid(){
-      return terminalid;
-  }
-   public long getoriginaltimestamp(){
-        return originaltimestamp; 
-   }
-   public int getpunchtypeid(){
-      return punchtypeid;
-  }
-   public void setOriginalTimeStamp(long ts){
-       gc.setTimeInMillis(originaltimestamp);
-       this.originaltimestamp = ts;
-   }
+
+    public String getAdjustmenttype() {
+        return adjustmenttype;
+    }
+
+    public void setAdjustmenttype(String adjustmenttype) {
+        this.adjustmenttype = adjustmenttype;
+    }
+
+    public int getTerminalid() {
+        return terminalid;
+    }
+
+    public void setTerminalid(int terminalid) {
+        this.terminalid = terminalid;
+    }
+
+    public int getPunchtypeid() {
+        return punchtypeid;
+    }
+
+    public void setPunchtypeid(int punchtypeid) {
+        this.punchtypeid = punchtypeid;
+    }
+
+    public long getOriginaltimestamp() {
+        return originaltimestamp;
+    }
+
+    public void setOriginaltimestamp(long originaltimestamp) {
+        
+        gc.setTimeInMillis(originaltimestamp);
+        this.originaltimestamp = originaltimestamp;
+        
+    }
+
+    public String getBadgeid() {
+        return badgeid;
+    }
+
+    public void setBadgeid(String badgeid) {
+        this.badgeid = badgeid;
+    }
     
     public String printOriginalTimestamp(){
       StringBuilder sb = new StringBuilder("#");
-      sb.append(badge);
+      sb.append(badgeid);
       switch(punchtypeid){
           case 0:
             sb.append(" CLOCKED OUT:");
@@ -68,4 +89,5 @@ public class Punch {
        sb.append(sdf.format(gc.getTime()).toUpperCase());
        return sb.toString();
     }
+    
 }

@@ -2,42 +2,42 @@ package edu.jsu.mcis.tas_sp20;
 
 
 public class Badge {
-    private String ID;
-    private String F_name;
-    private String L_name;
-    private String M_init;
+
+    private String id;
+    private String description;
     
-    public Badge(String ID){
-        this.ID = ID;
+    public Badge(String id, String d) {
+        
+        this.id = id;
+        this.description = d;
+        
     }
-    
-    public String getID(){
-        return ID;
+
+    public String getId() {
+        return id;
     }
-    
-    public String getF_name(){
-        return F_name;
+
+    public void setId(String id) {
+        this.id = id;
     }
-    public void setF_name(String f){
-        this.F_name = f;
+
+    public String getDescription() {
+        return description;
     }
-    
-    public String getL_name(){
-        return L_name;
-    }
-    public void setL_name(String l){
-        this.L_name = l;
-    }
-    
-    public String getM_init(){
-        return M_init;
-    }
-    public void setM_init(String m){
-        this.M_init = m;
+
+    public void setDescription(String description) {
+        this.description = description;
     }
     
     @Override
-    public String toString(){
-        return "#" + ID + "(" + L_name + ", " + F_name + M_init + ")";
+    public String toString() {
+        
+        //"#12565C60 (Chapman, Joshua E)"
+        String s = "#";
+        s += this.getId() + " (" + this.getDescription() + ")";
+        return s;
+        
     }
+    
+   
 }

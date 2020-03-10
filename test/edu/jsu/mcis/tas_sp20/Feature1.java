@@ -1,5 +1,6 @@
 package edu.jsu.mcis.tas_sp20;
 
+import java.sql.SQLException;
 import org.junit.*;
 import static org.junit.Assert.*;
 
@@ -30,8 +31,8 @@ public class Feature1 {
     }
     
     @Test
-    public void testGetPunches() {
-		
+    public void testGetPunches()  {
+	
         /* Retrieve Punches from Database */
 
         Punch p1 = db.getPunch(3433);

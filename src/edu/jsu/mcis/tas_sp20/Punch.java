@@ -14,16 +14,21 @@ public class Punch {
     private int terminalid;
     private int punchtypeid;
     private long originaltimestamp;
-    private String badgeid;
+    private Badge badgeid;
     private GregorianCalendar gc = new GregorianCalendar ();
   
           
-    public Punch(int terminalid, String badgeid, long originaltimestamp, int punchtypeid){
+    public Punch(int terminalid, Badge badgeid, long originaltimestamp, int punchtypeid){
           this.punchtypeid = punchtypeid;
           this.terminalid = terminalid;
           this.originaltimestamp = originaltimestamp;
           this.badgeid = badgeid;
     }
+    public Punch( Badge badgeid, int terminalid, int punchtypeid){
+          this.punchtypeid = punchtypeid;
+          this.terminalid = terminalid;
+          this.badgeid = badgeid;
+    } 
 
     public String getAdjustmenttype() {
         return adjustmenttype;
@@ -60,18 +65,27 @@ public class Punch {
         
     }
 
-    public String getBadgeid() {
-        return badgeid;
+    public Badge getBadge(){
+
+        return this.badgeid;
+
+    }
+    public String getBadgeid(){
+
+        return (this.getBadge()).getId();
+
     }
 
-    public void setBadgeid(String badgeid) {
-        this.badgeid = badgeid;
+     public void setBadge(Badge badge){
+
+        this.badgeid = badge;
+
     }
     
     public String printOriginalTimestamp(){
      String s = "#";
-        String badgeid = this.badgeid;
-        s += badgeid;
+        String b = this.getBadgeid();
+        s += b;
         
         switch (this.getPunchtypeid()){
             case 0:

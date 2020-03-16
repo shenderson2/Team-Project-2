@@ -2,9 +2,10 @@ package edu.jsu.mcis.tas_sp20;
 import java.sql.SQLException;
 //import javax.xml.transform.Result;
 import java.sql.*;
-//import java.sql.Time; //Caitlin Added
+
 import java.sql.Time;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 
 
 public class TASDatabase {
@@ -69,25 +70,39 @@ public class TASDatabase {
         try {
             
             String query;
-            PreparedStatement pstPunch, pstBadge;
+            PreparedStatement pst;
             ResultSet resultSet;
 
             query = "SELECT * FROM punch WHERE id=?";
-            pstPunch = conn.prepareStatement(query);
-            pstPunch.setInt(1, ID);
+            pst = conn.prepareStatement(query);
+            pst.setInt(1, ID);
 
-            boolean execute = pstPunch.execute();
-            resultSet = pstPunch.getResultSet();
+            boolean execute = pst.execute();
+            resultSet = pst.getResultSet();
             resultSet.first();
 
-            int terminalID = resultSet.getInt("terminalid");
-            String badgeID = resultSet.getString("badgeid");
-            long origTimeStamp = resultSet.getTimestamp("originaltimestamp").getTime();
-            int punchTypeID = resultSet.getInt("punchtypeid");
+            int terminalID = resultSet.getInt(2);
+            String badgeID = resultSet.getString(3);
+            long origTimeStamp = resultSet.getTimestamp(4).getTime();
+            int punchTypeID = resultSet.getInt(5);
+            query = "SELECT * FROM badge WHERE id=?";
+
+            pst = conn.prepareStatement(query);
+
+            pst.setString(1, badgeID);
+
+            pst.execute();
+
+            resultSet = pst.getResultSet();
+
+            resultSet.first();
+
+            Badge badge = new Badge(resultSet.getString(1), resultSet.getString(2));
             
-            punch = new Punch(terminalID, badgeID, origTimeStamp, punchTypeID);
             
-          
+            punch = new Punch(terminalID, badge, origTimeStamp, punchTypeID);
+            
+            
         } 
         catch (SQLException e) {
             e.printStackTrace();
@@ -224,38 +239,63 @@ public class TASDatabase {
         return shift;
     }
 
-    public void insertPunch(Punch p) {   
+    //public int insertPunch(Punch p)
+    public int insertPunch(Punch p) {   
         
         String badgeID = p.getBadgeid();
+  //      String badgeID = p.getId();
         int terminalID = p.getTerminalid();
         int punchTypeID = p.getPunchtypeid();
-        
+        int punchId = 1;
         
         Long originalTimeStamp = p.getOriginaltimestamp();
         
         SimpleDateFormat sdf = new SimpleDateFormat("EEE MM/dd/yyyy HH:mm:ss");
         String timestamp = sdf.format(originalTimeStamp).toUpperCase();
-        
-        PreparedStatement pst;
-        ResultSet resultSet;
-        String query;
-
-        try {
        
+        PreparedStatement pst;
+        String query;
+        ResultSet resultSet;
+        
+        try {
+     
             query = "INSERT INTO punch (terminalid, badgeid, originaltimestamp, punchtypeid) VALUES (?, ?, ?, ?)";
-            pst = conn.prepareStatement(query);
-            
+            //pst = conn.prepareStatement(query);
+            pst = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
             pst.setInt(1, terminalID);
             pst.setString(2, badgeID);
             pst.setString(3, timestamp);
             pst.setInt(4, punchTypeID);
-
+            
             pst.execute();
-          
-        } 
+
+                resultSet = pst.getGeneratedKeys();
+
+                resultSet.first();
+
+                if (resultSet.getInt(1) > 0) {
+
+                    return resultSet.getInt(1);
+
+                } else {
+
+                    return -1;
+
+                }
+        
+        }
         catch (SQLException e) {
             e.printStackTrace();
         }
-
+        
+        return punchId;
+    }
+    
+    public ArrayList<Punch> getDailyPunchList(Badge badge, long ts) 
+    {   
+        Timestamp timestamp = new Timestamp(ts);
+        ArrayList<Punch> dailyPunchList = new ArrayList<>();
+        //return null;
+        return null; 
     }
 }

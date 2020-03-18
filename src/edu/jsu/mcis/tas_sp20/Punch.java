@@ -29,6 +29,10 @@ public class Punch {
           this.terminalid = terminalid;
           this.badgeid = badgeid;
     } 
+    
+    public void adjust(Shift s){
+        
+    }
 
     public String getAdjustmenttype() {
         return adjustmenttype;

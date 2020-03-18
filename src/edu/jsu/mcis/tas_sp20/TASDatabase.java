@@ -275,7 +275,7 @@ public class TASDatabase {
             pst = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
             pst.setInt(1, terminalID);
             pst.setString(2, badgeID);
-            pst.setTimestamp(3, a);
+            pst.setString(3, originaltimestamp);
             pst.setInt(4, punchTypeID);
             
             pst.execute();

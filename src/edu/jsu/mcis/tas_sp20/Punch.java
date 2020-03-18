@@ -22,6 +22,9 @@ public class Punch {
           this.punchtypeid = punchtypeid;
           this.terminalid = terminalid;
           this.originaltimestamp = originaltimestamp;
+          
+
+      //  this.originaltimestamp = System.currentTimeMillis();
           this.badgeid = badgeid;
     }
     public Punch( Badge badgeid, int terminalid, int punchtypeid){

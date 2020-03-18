@@ -6,6 +6,7 @@ import java.sql.*;
 import java.sql.Time;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.GregorianCalendar;
 
 
 public class TASDatabase {
@@ -249,10 +250,20 @@ public class TASDatabase {
         int punchId = 1;
         
         Long originalTimeStamp = p.getOriginaltimestamp();
-        
+        GregorianCalendar ots = new GregorianCalendar();
         SimpleDateFormat sdf = new SimpleDateFormat("EEE MM/dd/yyyy HH:mm:ss");
-        String timestamp = sdf.format(originalTimeStamp).toUpperCase();
+        ots.setTimeInMillis(originalTimeStamp);
+        
+        Timestamp a = new Timestamp(ots.getTimeInMillis());
        
+        
+        ots.setTimeInMillis(p.getOriginaltimestamp());
+        String originaltimestamp = (new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")).format(ots.getTime());
+        
+        
+        
+       //a = new Timestamp(originalTimeStamp);
+        
         PreparedStatement pst;
         String query;
         ResultSet resultSet;
@@ -264,24 +275,24 @@ public class TASDatabase {
             pst = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
             pst.setInt(1, terminalID);
             pst.setString(2, badgeID);
-            pst.setString(3, timestamp);
+            pst.setTimestamp(3, a);
             pst.setInt(4, punchTypeID);
             
             pst.execute();
 
-                resultSet = pst.getGeneratedKeys();
+            resultSet = pst.getGeneratedKeys();
 
-                resultSet.first();
+            resultSet.first();
 
-                if (resultSet.getInt(1) > 0) {
+            if (resultSet.getInt(1) > 0) {
 
-                    return resultSet.getInt(1);
+                return resultSet.getInt(1);
 
-                } else {
+            } else {
 
-                    return -1;
+                return -1;
 
-                }
+            }
         
         }
         catch (SQLException e) {

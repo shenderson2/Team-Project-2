@@ -31,6 +31,7 @@ public class Punch {
           this.punchtypeid = punchtypeid;
           this.terminalid = terminalid;
           this.badgeid = badgeid;
+          this.originaltimestamp = System.currentTimeMillis();
     } 
     
     public void adjust(Shift s){

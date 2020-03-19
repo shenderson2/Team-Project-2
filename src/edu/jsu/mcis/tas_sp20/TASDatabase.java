@@ -15,7 +15,7 @@ public class TASDatabase {
 
     public TASDatabase(){
         try {
-          //  conn = DriverManager.getConnection(server, user, pass);
+         
             String server = "jdbc:mysql://localhost/TAS"; 
             String user = "root";
             String pass = "CS488";
@@ -240,11 +240,10 @@ public class TASDatabase {
         return shift;
     }
 
-    //public int insertPunch(Punch p)
+  
     public int insertPunch(Punch p) {   
         
         String badgeID = p.getBadgeid();
-  //      String badgeID = p.getId();
         int terminalID = p.getTerminalid();
         int punchTypeID = p.getPunchtypeid();
         int punchId = 1;
@@ -255,15 +254,11 @@ public class TASDatabase {
         ots.setTimeInMillis(originalTimeStamp);
         
         Timestamp a = new Timestamp(ots.getTimeInMillis());
-       
-        
+      
         ots.setTimeInMillis(p.getOriginaltimestamp());
         String originaltimestamp = (new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")).format(ots.getTime());
         
-        
-        
-       //a = new Timestamp(originalTimeStamp);
-        
+       
         PreparedStatement pst;
         String query;
         ResultSet resultSet;
@@ -271,29 +266,17 @@ public class TASDatabase {
         try {
      
             query = "INSERT INTO punch (terminalid, badgeid, originaltimestamp, punchtypeid) VALUES (?, ?, ?, ?)";
-            //pst = conn.prepareStatement(query);
+  
             pst = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
             pst.setInt(1, terminalID);
             pst.setString(2, badgeID);
             pst.setString(3, originaltimestamp);
             pst.setInt(4, punchTypeID);
-            
             pst.execute();
-
             resultSet = pst.getGeneratedKeys();
-
             resultSet.first();
-
-            if (resultSet.getInt(1) > 0) {
-
-                return resultSet.getInt(1);
-
-            } else {
-
-                return -1;
-
-            }
-        
+            return resultSet.getInt(1);
+   
         }
         catch (SQLException e) {
             e.printStackTrace();
@@ -302,11 +285,36 @@ public class TASDatabase {
         return punchId;
     }
     
-    public ArrayList<Punch> getDailyPunchList(Badge badge, long ts) 
-    {   
-        Timestamp timestamp = new Timestamp(ts);
-        ArrayList<Punch> dailyPunchList = new ArrayList<>();
-        //return null;
-        return null; 
+    public ArrayList<Punch> getDailyPunchList(Badge badge, long ts){ ///hay
+        Timestamp nts = new Timestamp(ts);
+        String timeInString = nts.toString().substring(0, 11);
+        timeInString += "%";
+        ArrayList<Punch> punchList = new ArrayList<>();
+        
+        try {
+            
+            PreparedStatement pst;
+            ResultSet resultSet;
+            
+            String query;
+            query = "SELECT * FROM punch WHERE badgeid = ? AND originaltimestamp LIKE ?";
+            
+            pst = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+            pst.setString(1, badge.getId());
+            pst.setString(2, timeInString);
+            pst.execute();
+            
+            resultSet = pst.getResultSet();   
+            
+            while(resultSet.next()){
+                int punchId = resultSet.getInt("id");
+                Punch p = this.getPunch(punchId);
+                punchList.add(p);
+            }  
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return punchList;
     }
 }

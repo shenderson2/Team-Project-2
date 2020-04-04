@@ -17,7 +17,14 @@ public class Shift {
         private LocalTime lunchstart;
         private LocalTime lunchstop;
         private int lunchdeduct;
-    
+        private int startHour;
+        private int startMinute;
+        private int stopHour;
+        private int stopMinute;
+        private int lstartHour;
+        private int lstartMinute;
+        private int lstopHour;
+        private int lstopMinute;
 
         public Shift(int shiftId, String description, int startHour, int startMinute, int stopHour, int stopMinute, 
                 int Interval, int Graceperiod, int Dock, int lstartHour,  int lstartMinute, 
@@ -36,7 +43,30 @@ public class Shift {
             this.lunchdeduct = Lunchdeduct;
 
         }
-
+        public int getstartHour() {
+            return startHour;
+        }
+        public int getstartMinute() {
+            return startMinute;
+        }
+        public int getstopHour() {
+            return stopHour;
+        }
+        public int getstopMinute() {
+            return stopMinute;
+        }
+        public int getlstartHour() {
+            return lstartHour;
+        }
+        public int getlstartMinute() {
+            return lstartMinute;
+        }
+        public int getlstopHour() {
+            return lstopHour;
+        }
+        public int getlstopMinute() {
+            return lstopMinute;
+        }
         public int getShiftId() {
             return shiftId;
         }

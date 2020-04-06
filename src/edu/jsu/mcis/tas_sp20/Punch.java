@@ -13,7 +13,7 @@ public class Punch {
     private String adjustmenttype;
     private int terminalid;
     private int punchtypeid;
-    private long originaltimestamp;
+    private long originaltimestamp, adjustedtimestamp;
     private Badge badgeid;
     private GregorianCalendar gc = new GregorianCalendar ();
   
@@ -94,6 +94,32 @@ public class Punch {
             long Dockstop = Dockstoptimestamp.getTimeInMillis();
           
   
+            switch (this.getPunchtypeid()){
+                case 0:
+            {
+                long punchTime = 0;
+                if ((punchTime <= shiftlstop)
+                        && (punchTime >= shiftlstart)){
+                    this.setAdjustedTimestamp(shiftlstart);
+                    this.setAdjustmenttype("Lunch Start");
+                }
+                else {
+                    punchDefaultAdjust(Intervalstart, punchTime);
+            }
+                
+                if  ((punchTime <= shiftlstop)
+                    && (punchTime >= shiftlstart)){
+                        this.setAdjustedTimestamp(shiftlstop);
+                        this.setAdjustmenttype("Lunch Stop");
+                    }
+
+                    //NON-SPECIAL CLOCK-IN CASES
+                    //Default adjustments
+                    else {
+                        punchDefaultAdjust(Intervalstart, punchTime);
+                    }
+                break;
+            }
             /*
             "Shift Start" and "Shift Stop": The employee’s early "clock in" punch or late "clock out" punch (within the Interval before the start of the shift or after the end of the shift) are realigned with the starting or stopping time of the shift, respectively.
             
@@ -117,7 +143,12 @@ public class Punch {
             "None": If the punch happens to have occurred at an even increment of the Interval (for example, if the Interval is set to 15 minutes and a first-shift employee clocks in at 9:30, disregarding the seconds), then no adjustment is necessary; all that needs to be done is to reset the seconds to zero.
             */
     }
+    }
 
+    /**
+     *
+     * @return
+     */
     public String getAdjustmenttype() {
         return adjustmenttype;
     }
@@ -193,6 +224,14 @@ public class Punch {
         
         
         return s;
-    }
     
+    }
 
+    private void setAdjustedTimestamp(long shiftlstart) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    private void punchDefaultAdjust(long Intervalstart, long punchTime) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+}

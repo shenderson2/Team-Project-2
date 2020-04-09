@@ -103,15 +103,21 @@ public class Punch {
                     this.setAdjustedTimestamp(shiftlstart);
                     this.setAdjustmenttype("Lunch Start");
                 }
-                else {
-                    punchDefaultAdjust(Intervalstart, punchTime);
-            }
-                
                 if  ((punchTime <= shiftlstop)
                     && (punchTime >= shiftlstart)){
                         this.setAdjustedTimestamp(shiftlstop);
                         this.setAdjustmenttype("Lunch Stop");
-                    }
+                }
+                
+                //Shift Start and Stop
+                if ((punchTime <= shiftstart)){
+                    this.setAdjustedTimestamp(shiftstart);
+                    this.setAdjustmenttype("Shift Start");
+                }
+                if ((punchTime >= shiftstop)){
+                    this.setAdjustedTimestamp(shiftstop);
+                    this.setAdjustmenttype("Shift Stop");
+                }
 
                     //NON-SPECIAL CLOCK-IN CASES
                     //Default adjustments

@@ -118,6 +118,18 @@ public class Punch {
                     this.setAdjustedTimestamp(shiftstop);
                     this.setAdjustmenttype("Shift Stop");
                 }
+                
+                //Grace period 
+                if ((punchTime > shiftstart) &&
+                        (punchTime <= gracestart)){
+                    this.setAdjustedTimestamp(shiftstart);
+                    this.setAdjustmenttype("Shift Satrt");
+                }
+                if ((punchTime < shiftstop) &&
+                        (punchTime >= gracestop )){
+                    this.setAdjustedTimestamp(shiftstop);
+                    this.setAdjustmenttype("Shift Stop");
+                }
 
                     //NON-SPECIAL CLOCK-IN CASES
                     //Default adjustments

@@ -123,12 +123,24 @@ public class Punch {
                 if ((punchTime > shiftstart) &&
                         (punchTime <= gracestart)){
                     this.setAdjustedTimestamp(shiftstart);
-                    this.setAdjustmenttype("Shift Satrt");
+                    this.setAdjustmenttype("Shift Start");
                 }
                 if ((punchTime < shiftstop) &&
                         (punchTime >= gracestop )){
                     this.setAdjustedTimestamp(shiftstop);
                     this.setAdjustmenttype("Shift Stop");
+                }
+                
+                     //Interval Round 
+                if ((punchTime > Dockstart) &&
+                        (punchTime <= Intervalstart)){
+                    this.setAdjustedTimestamp(Intervalstart);
+                    this.setAdjustmenttype("Interval Round");
+                }
+                if ((punchTime < Dockstop) &&
+                        (punchTime >= Intervalstop )){
+                    this.setAdjustedTimestamp(Intervalstop);
+                    this.setAdjustmenttype("Interval Round");
                 }
 
                     //NON-SPECIAL CLOCK-IN CASES

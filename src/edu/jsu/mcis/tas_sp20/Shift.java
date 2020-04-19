@@ -26,11 +26,21 @@ public class Shift {
         private int lstopHour;
         private int lstopMinute;
 
+    
+
         public Shift(int shiftId, String description, int startHour, int startMinute, int stopHour, int stopMinute, 
                 int Interval, int Graceperiod, int Dock, int lstartHour,  int lstartMinute, 
                 int lstopHour, int lstopMinute, int Lunchdeduct){
 
-
+            this.startHour = startHour;
+            this.startMinute = startMinute;
+            this.stopHour = stopHour;
+            this.stopMinute = stopMinute;
+            this.lstartHour = lstartHour;
+            this.lstopHour = lstopHour;
+            this.lstartMinute = lstartMinute;
+            this.lstopMinute = lstopMinute;
+            
             this.shiftId = shiftId;
             this.description = description;
             this.start = LocalTime.of(startHour, startMinute);
@@ -45,6 +55,40 @@ public class Shift {
         }
         public int getstartHour() {
             return startHour;
+        }
+        public void setStartHour(int startHour) {
+        this.startHour = startHour;
+    }
+
+    public void setStartMinute(int startMinute) {
+        this.startMinute = startMinute;
+    }
+
+    public void setStopHour(int stopHour) {
+        this.stopHour = stopHour;
+    }
+
+    public void setStopMinute(int stopMinute) {
+        this.stopMinute = stopMinute;
+    }
+
+    public void setLstartHour(int lstartHour) {
+        this.lstartHour = lstartHour;
+    }
+
+    public void setLstartMinute(int lstartMinute) {
+        this.lstartMinute = lstartMinute;
+    }
+
+    public void setLstopHour(int lstopHour) {
+        this.lstopHour = lstopHour;
+    }
+
+    public void setLstopMinute(int lstopMinute) {
+        this.lstopMinute = lstopMinute;
+    }
+         public void setstartHour(int s) {
+            this.startHour = s;
         }
         public int getstartMinute() {
             return startMinute;
@@ -169,7 +213,7 @@ public class Shift {
 
 	public String toString(){
 
-                //"Shift 1: 07:00 - 15:30 (510 minutes); Lunch: 12:00 - 12:30 (30 minutes)
+     
                 
                 StringBuilder s = new StringBuilder("");
                 s.append(getDescription()).append(": ").append(this.getStart().toString());

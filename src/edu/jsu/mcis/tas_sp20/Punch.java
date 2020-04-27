@@ -279,6 +279,10 @@ public class Punch {
     private void setAdjustedTimestamp(long time) {
         this.adjustedtimestamp = time;
     }
+    public long getAdjustedTimestamp() {
+        return adjustedtimestamp;
+    }
+
 
     private void makeAdjustment(int interval, GregorianCalendar originalpunch) 
     {
